@@ -1,23 +1,24 @@
 'use strict';
 import "react-native";
 import React from "react";
-import MockController from "./MockController";
-import MockView from "./MockView";
-import MockModel from "./MockModel";
 import renderer from "react-test-renderer";
+import LoginView from "../../../src/login/LoginView";
+import LoginModel from "../../../src/login/LoginModel";
+import LoginController from "../../../src/login/LoginController";
 
 describe('Login Feature', () => {
 
     let view = renderer.create(
-        <MockView/>
+        <LoginView/>
     ).getInstance();
-    let model = new MockModel;
-    new MockController(model, view);
+    let model = new LoginModel();
+    new LoginController(model, view);
 
     it('should login', () => {
         view.username = 'admin';
         view.password = 'admin';
-        let isLogin = view.handleLoginButton();
+        view.handleLoginButton();
+        let isLogin = model.isLogin();
         expect(isLogin).toBe(true);
     });
 
