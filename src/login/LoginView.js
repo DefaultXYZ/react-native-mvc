@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from "react";
-import {Button, Platform, StyleSheet, Text, TextInput, View, ToastAndroid} from "react-native";
+import {Button, Platform, StyleSheet, Text, TextInput, View, ToastAndroid, Keyboard} from "react-native";
 import LoginController from "./LoginController";
 
 let styles = StyleSheet.create({
@@ -63,6 +63,7 @@ export default class LoginView extends Component {
     }
 
     handleLoginButton() {
+        Keyboard.dismiss();
         this.controller.login();
     }
 
@@ -70,12 +71,8 @@ export default class LoginView extends Component {
 
     }
 
-    showLoginSuccessToast() {
-        ToastAndroid.show('Login is successful', ToastAndroid.SHORT);
-    }
-
-    showLoginFailedToast() {
-        ToastAndroid.show('Login is failed', ToastAndroid.SHORT);
+    showResultToast(text) {
+        ToastAndroid.show(text, ToastAndroid.SHORT);
     }
 
     render() {
@@ -84,10 +81,15 @@ export default class LoginView extends Component {
                 <Text style={styles.text}>React MVC Application</Text>
                 <View style={styles.inputContainer}>
                     <TextInput
+                        ref='Username'
                         style={styles.textInput}
                         placeholder="Username"
-                        onChangeText={(text) => this.setState({username: text})}/>
+                        onChangeText={(text) => this.setState({username: text})}
+                        returnKeyType={'next'}
+                        blurOnSubmit={false}
+                        onSubmitEditing={(event) => {this.refs.Password.focus()}}/>
                     <TextInput
+                        ref='Password'
                         style={styles.textInput}
                         placeholder="Password"
                         secureTextEntry={true}
