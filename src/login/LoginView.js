@@ -40,8 +40,8 @@ export default class LoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: 'admin',
-            password: 'admin'
+            username: '',
+            password: ''
         };
         this.controller = new LoginController(props.model, this);
     }
@@ -64,14 +64,15 @@ export default class LoginView extends Component {
 
     handleLoginButton() {
         Keyboard.dismiss();
-        this.controller.login();
+        let result = this.controller.login();
+        LoginView.showResultToast(result);
     }
 
     handleRegisterButton() {
 
     }
 
-    showResultToast(text) {
+    static showResultToast(text) {
         ToastAndroid.show(text, ToastAndroid.SHORT);
     }
 

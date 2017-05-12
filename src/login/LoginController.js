@@ -17,10 +17,10 @@ export default class LoginController {
         try {
             this.model.login();
             if (this.model.isLogin()) {
-                this.view.showResultToast('Login is successful');
+                return 'Login is successful';
             }
         } catch (e) {
-            this.view.showResultToast(e.message);
+            return e.message;
         }
     }
 
