@@ -12,7 +12,7 @@ describe('Login Feature', () => {
         <LoginView/>
     ).getInstance();
     let model = new LoginModel();
-    new LoginController(model, view);
+    let controller = new LoginController(model, view);
 
     it('should login', () => {
         view.username = 'admin';
@@ -29,12 +29,14 @@ describe('Login Feature', () => {
     it('should display error on empty', () => {
         view.username = '';
         view.password = 'admin';
-        expect(() => view.handleLoginButton()).toThrowError('Please, enter your login/password');
+        controller.readValues();
+        expect(() => model.login()).toThrowError('Please, enter your login/password');
     });
 
     it('should display error on wrong', () => {
         view.username = 'admin';
         view.password = 'password';
-        expect(() => view.handleLoginButton()).toThrowError('Please, enter correct login/password');
+        controller.readValues();
+        expect(() => model.login()).toThrowError('Please, enter correct login/password');
     });
 });
