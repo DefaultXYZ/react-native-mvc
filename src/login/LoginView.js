@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from "react";
-import {Button, Platform, StyleSheet, Text, TextInput, View, ToastAndroid, Keyboard} from "react-native";
+import {Button, Platform, StyleSheet, Text, TextInput, View, ToastAndroid, Keyboard, AlertIOS} from "react-native";
 import LoginController from "./LoginController";
 
 let styles = StyleSheet.create({
@@ -65,15 +65,19 @@ export default class LoginView extends Component {
     handleLoginButton() {
         Keyboard.dismiss();
         let result = this.controller.login();
-        LoginView.showResultToast(result);
+        LoginView.showResultMessage(result);
     }
 
     handleRegisterButton() {
 
     }
 
-    static showResultToast(text) {
-        ToastAndroid.show(text, ToastAndroid.SHORT);
+    static showResultMessage(text) {
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(text, ToastAndroid.SHORT);
+        } else {
+            AlertIOS.alert(text);
+        }
     }
 
     render() {
