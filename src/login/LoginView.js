@@ -69,7 +69,9 @@ export default class LoginView extends Component {
     }
 
     handleRegisterButton() {
-
+        Keyboard.dismiss();
+        let result = this.controller.register();
+        LoginView.showResultMessage(result);
     }
 
     static showResultMessage(text) {

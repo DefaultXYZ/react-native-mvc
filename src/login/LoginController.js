@@ -16,8 +16,20 @@ export default class LoginController {
         this.readValues();
         try {
             this.model.login();
-            if (this.model.isLogin()) {
+            if (this.model.isLogin) {
                 return 'Login is successful';
+            }
+        } catch (e) {
+            return e.message;
+        }
+    }
+
+    register() {
+        this.readValues();
+        try {
+            this.model.register();
+            if (this.model.isLogin) {
+                return 'Registered successfully';
             }
         } catch (e) {
             return e.message;
