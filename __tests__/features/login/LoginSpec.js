@@ -14,17 +14,41 @@ describe('Login Feature', () => {
     let model = new LoginModel();
     let controller = new LoginController(model, view);
 
-    it('should login', () => {
-        view.username = 'admin';
-        view.password = 'admin';
-        view.handleLoginButton();
-        let isLogin = model.isLogin();
-        expect(isLogin).toBe(true);
+    describe('When user login', () => {
+
+        it('should login', () => {
+            view.username = 'admin';
+            view.password = 'admin';
+            view.handleLoginButton();
+            let isLogin = model.isLogin();
+            expect(isLogin).toBe(true);
+        });
+
+        it('should display message', () => {
+            view.username = 'admin';
+            view.password = 'admin';
+            let resultMessage = controller.login();
+            expect(resultMessage).toBe('Login is successful');
+        });
+
     });
 
-    // it('should register new user', () => {
-    //
-    // });
+    describe('When user registering', () => {
+
+        it('should register new user with id', () => {
+            let newUserId = 0;
+            expect(newUserId).toBe(1);
+        });
+
+        it('should display error existed user', () => {
+            expect().toThrowError('User already exists');
+        });
+
+    });
+
+    it('should display error on whitespaces', () => {
+        expect().toThrowError('Login/password should not contain whitespaces');
+    });
 
     it('should display error on empty', () => {
         view.username = '';
