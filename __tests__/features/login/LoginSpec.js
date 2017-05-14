@@ -2,14 +2,14 @@
 import "react-native";
 import React from "react";
 import renderer from "react-test-renderer";
-import LoginView from "../../../src/login/LoginView";
 import LoginModel from "../../../src/login/LoginModel";
 import LoginController from "../../../src/login/LoginController";
+import MockView from "./MockView";
 
 describe('Login Feature', () => {
 
     let view = renderer.create(
-        <LoginView/>
+        <MockView/>
     ).getInstance();
     let model = new LoginModel();
     let controller = new LoginController(model, view);
