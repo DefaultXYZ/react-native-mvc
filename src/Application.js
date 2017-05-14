@@ -2,8 +2,8 @@
 
 import React, {Component} from "react";
 import {StyleSheet, View} from "react-native";
-import LoginView from "./login/LoginView";
 import LoginModel from "./login/LoginModel";
+import LoginNavigator from "./login/LoginNavigator";
 
 const styles = StyleSheet.create({
     container: {
@@ -18,7 +18,7 @@ export default class Application extends Component {
         let model = new LoginModel();
         return (
             <View style={styles.container}>
-                <LoginView model={model}/>
+                <LoginNavigator screenProps={{model: model}}/>
             </View>
         );
     }

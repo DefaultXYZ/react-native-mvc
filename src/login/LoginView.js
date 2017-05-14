@@ -1,7 +1,7 @@
 'use strict';
 
 import React, {Component} from "react";
-import {Button, Platform, StyleSheet, Text, TextInput, View, ToastAndroid, Keyboard, AlertIOS} from "react-native";
+import {AlertIOS, Button, Keyboard, Platform, StyleSheet, Text, TextInput, ToastAndroid, View} from "react-native";
 import LoginController from "./LoginController";
 
 let styles = StyleSheet.create({
@@ -35,6 +35,9 @@ let styles = StyleSheet.create({
 });
 
 export default class LoginView extends Component {
+    static navigationOptions = {
+        header: null
+    };
     controller: LoginController;
 
     constructor(props) {
@@ -43,7 +46,8 @@ export default class LoginView extends Component {
             username: '',
             password: ''
         };
-        this.controller = new LoginController(props.model, this);
+        const screenProps = this.props.screenProps;
+        this.controller = new LoginController(screenProps.model, this);
     }
 
     get username() {
@@ -66,6 +70,9 @@ export default class LoginView extends Component {
         Keyboard.dismiss();
         let result = this.controller.login();
         LoginView.showResultMessage(result);
+        if (this.controller.isLogin()) {
+            this.props.navigation.navigate('Hello', {username: this.username});
+        }
     }
 
     handleRegisterButton() {
@@ -94,7 +101,7 @@ export default class LoginView extends Component {
                         onChangeText={(text) => this.setState({username: text})}
                         returnKeyType={'next'}
                         blurOnSubmit={false}
-                        onSubmitEditing={(event) => {this.refs.Password.focus()}}/>
+                        onSubmitEditing={(event) => this.refs.Password.focus()}/>
                     <TextInput
                         ref='Password'
                         style={styles.textInput}

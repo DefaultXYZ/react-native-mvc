@@ -4,7 +4,7 @@ import LoginModel from "./LoginModel";
 
 export default class LoginController {
     model: LoginModel;
-    view: LoginView;
+    view;
 
     constructor(model, view) {
         this.model = model;
@@ -34,6 +34,10 @@ export default class LoginController {
         } catch (e) {
             return e.message;
         }
+    }
+
+    isLogin() {
+        return this.model.isLogin;
     }
 
     readValues() {
